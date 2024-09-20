@@ -5,7 +5,7 @@
 # Testovene na: KDE Neon 5.27, vyadnie: 22.04, oznacenie ako: jammy
 
 
-#read -p "Zadaj login druheho uzivatela, zacinajice malim pismenom:" loginP
+#read -p "Zadaj login druheho pouzivatela, zacinajice malim pismenom:" loginP
 #login=`cat /etc/passwd | grep -e $loginP | cut -d: -f1`
 #if [[ $login == '' ]] ; then
  #   exit 0
@@ -16,14 +16,15 @@
 sudo apt update
 	# instalacia snap
 sudo apt install snapd
+
 # instalacia gimp ---------------------------------
-sudo snap install gimp # nieje treba instalovat je tu  inkscape /usr/bin/inksc*
+sudo snap install gimp
 #read -p "Zadaj heslo pre pouzivatela $loginAktu:" passwordAktu
 #echo $passwordAktu
 
 # spustenie aby sa vytvoril adresar v  /home/$USER/snap/...
 /snap/bin/gimp   
-# zakazanie prisupu skupine a ostatnym uzivatelom
+# zakazanie prisupu skupine a ostatnym pouzivatelom
 path=`echo /home/$USER/snap/gim?`
 sudo chmod -R o-rx  $path  # je mozne nastvit len pre lkoaneho pouzivatela
 #   sudo chmod -R o-rwx  $path #u+rwx,g+rwx,
@@ -39,7 +40,6 @@ sudo chmod -R o-rx  $path  # je mozne nastvit len pre lkoaneho pouzivatela
 # sudo chmod -R u+rwx,g-rx,o-rx  $path
 
 # instalacia video editoru ------------------------
- 	# problem s instalciou, nieje podporovany, ked sa naisntaluje nefunguje, najst iny program s rovnakym ucelom
 sudo apt install -y kdenlive	     # funguje a ide ja spustit
 
 path=`echo /usr/bin/kdenl???`
@@ -50,7 +50,7 @@ sudo chmod -R u+rwx,o-rx  $path
 # instalacia diskord ---------------------------------
 sudo snap install discord
 /snap/bin/discord
-# zakazanie prisupu skupine a ostatnym uzivatelom
+# zakazanie prisupu skupine a ostatnym pouzivatelom
 path=`echo /home/$USER/snap/discor*`
 sudo chmod -R o-rx  $path
 
@@ -59,7 +59,7 @@ sudo chmod -R o-rx  $path
 	# problem s instalciou, je mozne vyriesit instalciou cez snap
 sudo snap install steam     # funguje a ide aj spustit
 /snap/bin/steam
-# zakazanie prisupu skupine a ostatnym uzivatelom
+# zakazanie prisupu skupine a ostatnym pouzivatelom
 path=`echo /home/$USER/snap/stea*`
 sudo chmod -R o-rx  $path
 
@@ -68,7 +68,7 @@ sudo chmod -R o-rx  $path
 # instalacia opery ---------------------------------------
 sudo snap install opera
 /snap/bin/opera
-# zakazanie prisupu skupine a ostatnym uzivatelom
+# zakazanie prisupu skupine a ostatnym pouzivatelom
 path=`echo /home/$USER/snap/oper*`
 sudo chmod -R u-rwx  $path
 
@@ -80,7 +80,7 @@ path=`echo /usr/bin/libreoff*`
 #sudo chown -R $USER $path #sudo chown -R $login $path
 sudo chmod -R u-rwx  $path #sudo chmod -R u+rwx,g-rx,o-rx  $path
 
-# // !!nahrada!! libreoffice novsie lepsia podpora a uprava Microsoft Office suborov 
+# // !!nahrada!! libreoffice, novsie a lepsia podpora a uprava Microsoft Office suborov 
 #sudo snap install onlyoffice-desktopeditors
 #/snap/bin/onlyoffice-desktopeditors
 
