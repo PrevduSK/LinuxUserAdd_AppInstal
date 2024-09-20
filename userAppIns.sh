@@ -2,7 +2,7 @@
 # Tento subor prikazov naistaluje pre aktualneho pouzivatele:
 #		Gimp, Kdenlive, Discord, Steam.
 #	pre druheho pouzivatele: Opera, LibreOffice, alebo OnlyOffice
-# Testovene na: KDE Neon 5.27, vyadnei: 22.04, oznacenie ako: jammy
+# Testovene na: KDE Neon 5.27, vyadnie: 22.04, oznacenie ako: jammy
 
 
 #read -p "Zadaj login druheho uzivatela, zacinajice malim pismenom:" loginP
