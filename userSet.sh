@@ -1,7 +1,7 @@
 #!/bin/bash -xvu
-# 1.Vytvorneie noveho pouzivatela a jeho domovky priecinok
+# Tento subor prikazov 1.Vytvorneie noveho pouzivatela a jeho domovky priecinok
 # 2.Vytvorenie zdeilaneho preciku
-
+# Testovene na: KDE Neon 5.27, vyadnei: 22.04, oznacenie ako: jammy
 
 # zistenie idGrup a vytovry druhedo uzivatela --------------
  # read -p "Zadaj meno aktualneho pouzivatel:" loginAktu

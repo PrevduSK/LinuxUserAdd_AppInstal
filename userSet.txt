@@ -1,0 +1,93 @@
+#!/bin/bash -xvu
+
+# zistenie idGrup a vytovry druhedo uzivatela --------------
+ # read -p "Zadaj meno aktualneho pouzivatel:" loginAktu
+idGrup=`cat /etc/passwd | grep -e $USER: | cut -d:  -f4`
+
+read -p "Zadaj meno uzivatela:" name
+read -p "Zadaj login uzivatela, zacinajice malim pismenom:" login
+sudo useradd -g $idGrup -s /bin/bash -m -c "$name" $login
+
+# nastavenie hesla pre pouyivatela
+echo "Zadaj heslo pre pouzivatela $name:"
+sudo passwd  $login
+# tu musis zadat heslo rucen
+  # nie cez   echo $hesloU
+#povoly uzivatela
+sudo usermod -U $login
+
+#vytvory zdielany adresar -------------------------------
+read -p "Zadaj nazov zdielaneho adresara:" nameShrDir
+sudo mkdir -p /home/$nameShrDir
+sudo chgrp -R $idGrup /home/$nameShrDir
+sudo chmod -R 2775 /home/$nameShrDir
+
+
+## instalacia pre verejne konto
+sudo apt update
+# instalacia snap
+sudo apt install snapd
+# instalacia gimp ---------------------------------
+sudo snap install gimp
+
+/snap/bin/gimp
+# zakazanie prisupu skupine a ostatnym uzivatelom
+path=`echo /home/$USER/snap/gim?`
+sudo chmod -R u-rwx,g-rx,o-rx  $path
+
+# povoenie druhemu uzivatelovy
+pathB=`sudo find /home/$login/snap/ -maxdepth 1 -name gim?`
+sudo chmod -R g-rx,o-rx  $pathB
+
+# instalacia video editoru ------------------------
+ 	# problem s instalciou, nieje podporovany, ked sa naisntaluje nefunguje, najst iny program s rovnakym ucelom
+sudo apt install -y kdenlive	     # ide ja spustit
+
+path=`echo /usr/bin/kdenl???`
+sudo chown -R $USER $path
+sudo chmod -R u+rwx,g-rx,o-rx  $path
+
+
+# instalacia diskord ---------------------------------
+sudo snap install discord
+/snap/bin/discord
+# zakazanie prisupu skupine a ostatnym uzivatelom
+path=`echo /home/$USER/snap/discor?`
+sudo chmod -R g-rx,o-rx  $path
+
+# zakazanie druhemu uzivatelovy
+pathB=`sudo find /home/$login/snap/ -maxdepth 1 -name discor?`
+sudo chmod -R u-rwx,g-rx,o-rx  $pathB
+
+# instalacia steam -----------------------------------
+	# problem s instalciou, je mozne vyresit instalciou cez snap
+sudo snap install steam     # ide aj spustit
+/snap/bin/steam
+# zakazanie prisupu skupine a ostatnym uzivatelom
+path=`echo /home/$USER/snap/stea?`
+sudo chmod -R g-rx,o-rx  $path
+
+# zakazanie druhemu uzivatelovy
+pathB=`sudo find /home/$login/snap/ -maxdepth 1 -name stea?`
+sudo chmod -R u-rwx,g-rx,o-rx  $pathB
+
+## sukromen konto
+# instalacia opery ---------------------------------------
+sudo snap install opera
+/snap/bin/opera
+# zakazanie prisupu skupine a ostatnym uzivatelom
+path=`echo /home/$USER/snap/oper?`
+sudo chmod -R u-rwx,g-rx,o-rx  $path
+
+# povoenie druhemu uzivatelovy
+pathB=`sudo find /home/$login/snap/ -maxdepth 1 -name oper?`
+sudo chmod -R g-rx,o-rx  $pathB
+
+# instalacia lireoffice -----------------------------------
+sudo apt install -y libreoffice
+
+path=`echo /usr/bin/libreoff*`
+sudo chown -R $login $path
+sudo chmod -R u+rwx,g-rx,o-rx  $path
+
+exit 0

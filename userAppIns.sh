@@ -1,4 +1,9 @@
 #!/bin/bash -xvu
+# Tento subor prikazov naistaluje pre aktualneho pouzivatele:
+#		Gimp, Kdenlive, Discord, Steam.
+#	pre druheho pouzivatele: Opera, LibreOffice, alebo OnlyOffice
+# Testovene na: KDE Neon 5.27, vyadnei: 22.04, oznacenie ako: jammy
+
 
 #read -p "Zadaj login druheho uzivatela, zacinajice malim pismenom:" loginP
 #login=`cat /etc/passwd | grep -e $loginP | cut -d: -f1`
@@ -7,18 +12,20 @@
 #else
 #read -p "Zadaj heslo pre pouzivatela $login:" passwrd
 
-	## instalacia pre verejne konto
+	##______ instalacia pre verejne konto ________________________________________
 sudo apt update
 	# instalacia snap
 sudo apt install snapd
 # instalacia gimp ---------------------------------
-sudo snap install gimp # nieje treba instaloat je tu  inkscape /usr/bin/inksc*
+sudo snap install gimp # nieje treba instalovat je tu  inkscape /usr/bin/inksc*
 #read -p "Zadaj heslo pre pouzivatela $loginAktu:" passwordAktu
 #echo $passwordAktu
-/snap/bin/gimp
+
+# spustenie aby sa vytvoril adresar v  /home/$USER/snap/...
+/snap/bin/gimp   
 # zakazanie prisupu skupine a ostatnym uzivatelom
 path=`echo /home/$USER/snap/gim?`
-sudo chmod -R o-rx  $path  # je mozne nastvit len pre lkoaneho pouyivatela
+sudo chmod -R o-rx  $path  # je mozne nastvit len pre lkoaneho pouzivatela
 #   sudo chmod -R o-rwx  $path #u+rwx,g+rwx,
 
 
@@ -33,7 +40,7 @@ sudo chmod -R o-rx  $path  # je mozne nastvit len pre lkoaneho pouyivatela
 
 # instalacia video editoru ------------------------
  	# problem s instalciou, nieje podporovany, ked sa naisntaluje nefunguje, najst iny program s rovnakym ucelom
-sudo apt install -y kdenlive	     # ide ja spustit
+sudo apt install -y kdenlive	     # funguje a ide ja spustit
 
 path=`echo /usr/bin/kdenl???`
 sudo chown -R $USER $path
@@ -49,15 +56,15 @@ sudo chmod -R o-rx  $path
 
 
 # instalacia steam -----------------------------------
-	# problem s instalciou, je mozne vyresit instalciou cez snap
-sudo snap install steam     # ide aj spustit
+	# problem s instalciou, je mozne vyriesit instalciou cez snap
+sudo snap install steam     # funguje a ide aj spustit
 /snap/bin/steam
 # zakazanie prisupu skupine a ostatnym uzivatelom
 path=`echo /home/$USER/snap/stea*`
 sudo chmod -R o-rx  $path
 
 
-## sukromen konto
+	##________ sukromen konto _______________________________________________
 # instalacia opery ---------------------------------------
 sudo snap install opera
 /snap/bin/opera
@@ -66,12 +73,19 @@ path=`echo /home/$USER/snap/oper*`
 sudo chmod -R u-rwx  $path
 
 
-# instalacia lireoffice -----------------------------------
-#sudo apt install -y libreoffice
+# instalacia libreoffice -----------------------------------
+sudo apt install -y libreoffice
 
-#path=`echo /usr/bin/libreoff*`
-#sudo chown -R $login $path
-#sudo chmod -R u+rwx,g-rx,o-rx  $path
+path=`echo /usr/bin/libreoff*`
+#sudo chown -R $USER $path #sudo chown -R $login $path
+sudo chmod -R u-rwx  $path #sudo chmod -R u+rwx,g-rx,o-rx  $path
+
+# // !!nahrada!! libreoffice novsie lepsia podpora a uprava Microsoft Office suborov 
+#sudo snap install onlyoffice-desktopeditors
+#/snap/bin/onlyoffice-desktopeditors
+
+#path=`echo /home/$USER/snap/onlyoffic*`
+#sudo chmod -R u-rwx  $path
 #fi
 
 exit 0
